@@ -33,43 +33,43 @@ def move(index, player = "X")
   @board[index] = player
 end
 
-def position_taken?(board, index)
-  board[index] != " " && board[index] != ""
+def position_taken?(index)
+  @board[index] != " " && @board[index] != ""
 end
 
-def valid_move?(board, index)
-  index.between?(0,8) && !position_taken?(board, index)
+def valid_move?(index)
+  index.between?(0,8) && !position_taken?(index)
 end
 
 
 
-def turn(board)
+def turn
   puts "Please enter 1-9:"
   user_input = gets.strip
   index = input_to_index(user_input)
-  if valid_move?(board, index)
-    move(board,index,current_player(board))
-    display_board(board)
+  if valid_move?(index)
+    move(index,current_player)
+    display_board
   else
-   turn(board)
+   turn
   end
 end
 
 
-def turn_count(board)
-  board.count{|token| token == "X" || token == "O"}
+def turn_count
+  @board.count{|token| token == "X" || token == "O"}
 end
 
 
-def current_player(board)
-  turn_count(board) % 2 == 0 ? "X" : "O"
+def current_player
+  turn_count % 2 == 0 ? "X" : "O"
 end
 
-def won?(board)
+def won?
     WIN_COMBINATIONS.detect do |combination|
   
-     if (board[combination[0]] == "X" && board[combination[1]] == "X" && board[combination[2]] == "X") ||
-         (board[combination[0]] == "O" && board[combination[1]] == "O" && board[combination[2]] == "O")
+     if (@board[combination[0]] == "X" && @board[combination[1]] == "X" && @board[combination[2]] == "X") ||
+         (@board[combination[0]] == "O" && @board[combination[1]] == "O" && @board[combination[2]] == "O")
         
         return combination
         
