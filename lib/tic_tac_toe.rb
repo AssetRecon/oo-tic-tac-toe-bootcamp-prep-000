@@ -81,21 +81,21 @@ def won?
 end
 
 
-def full?(board)
-board.all? {|space| space == "X" || space == "O"}
+def full?
+@board.all? {|space| space == "X" || space == "O"}
 end
 
-def draw?(board)
-  full?(board) && !won?(board)
+def draw?
+  full? && !won?
   end
   
-def over?(board)
-  won?(board) || draw?(board)
+def over?
+  won? || draw?
 end
   
-def winner(board)
-  if won?(board).class == Array
-    return board[won?(board)[0]]
+def winner
+  if won?.class == Array
+    return @board[won?[0]]
   else
   return nil
   end
@@ -103,13 +103,13 @@ end
 
 
   
-  def play(board)
-  until over?(board)
-    turn(board)
+  def play
+  until over?
+    turn
   end
-  if won?(board)
-    puts "Congratulations #{winner(board)}!"
-  elsif draw?(board)
+  if won?
+    puts "Congratulations #{winner}!"
+  elsif draw?
     puts "Cat's Game!"
   end
 end
